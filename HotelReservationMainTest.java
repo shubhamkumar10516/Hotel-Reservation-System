@@ -1,6 +1,8 @@
 package com.bridgeLabz.hotelResevationSystem;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.text.ParseException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,5 +34,9 @@ public class HotelReservationMainTest
         assertTrue(hotelResevation.addHotelNameAndRate("Ridgewood", 220));
     }
     
-    
+    @Test
+    public void findCheapestHotelTest4() throws ParseException
+    {
+        assertEquals("Lakewood",hotelResevation.findCheapestHotel("10-sep-2020", "11-sep-2020"));
+    }   
 }

@@ -3,27 +3,44 @@ package com.bridgeLabz.hotelResevationSystem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import java.util.*;
 public class HotelReservationMain 
 {
 
 	private Map<String, Double> hotelRateMap = new HashMap<>();
-	private double PRICE_OF_LAKEWOOD_WEEKDAYS = 110;
-	private double PRICE_OF_LAKEWOOD_WEEKNDAYS = 90;
-	private double PRICE_OF_BWOOD_WEEKDAYS = 150;
-	private double PRICE_OF_BWOOD_WEEKNDAYS = 50;
-	private double PRICE_OF_RWOOD_WEEKDAYS = 220;
-	private double PRICE_OF_RWOOD_WEEKNDAYS = 150;
+	private List<Double> priceAtWeekend = new ArrayList<>();
+	private List<Integer> rating = new ArrayList<>();
+	
+	public void addPriceAtWeekend() {
+		priceAtWeekend.add(90.0);
+		priceAtWeekend.add(50.0);
+		priceAtWeekend.add(150.0);
+	}
+	
+	public void addRating() {
+		rating.add(3);
+		rating.add(4);
+		rating.add(5);
+	}
+	
 	public void printWelcomeMessage() {
 		System.out.println("***Welcome to Hotel Resevation System***");
 	}
 	
 	public boolean addHotelNameAndRate(String hotelName, double hotelRates) {
+		
+		hotelRateMap.put("Lakewood", 110.0);
+		hotelRateMap.put("Bridgewood", 150.0);
+		hotelRateMap.put("Ridgewood", 220.0);
 		if(hotelRateMap.put(hotelName, hotelRates) == null)
-			return true;
-		return false;
+			return false;
+		return true;
 	} 
+	@SuppressWarnings("deprecation")
 	public String findCheapestHotel(String inDate, String outDate) throws ParseException {
+		
+		addHotelNameAndRate( null,  0.0);
+		addPriceAtWeekend();
 		Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(inDate);
 		Date date2 = new SimpleDateFormat("dd-MMM-yyyy").parse(outDate);
 		double price = 0.0;
@@ -36,22 +53,22 @@ public class HotelReservationMain
 	    if((date1.getDay() == 0 || date1.getDay() == 6) &&
 	    		(date2.getDay() == 0 || date2.getDay() == 6)&&
 	    		 (date2 != date1)) {
-	    	priceForLw = 2 * PRICE_OF_LAKEWOOD_WEEKNDAYS + (noOfDays - 2) * PRICE_OF_LAKEWOOD_WEEKDAYS;
-	    	priceForBw = 2 * PRICE_OF_BWOOD_WEEKNDAYS + (noOfDays - 2) * PRICE_OF_BWOOD_WEEKDAYS;
-	    	priceforRw = 2 * PRICE_OF_RWOOD_WEEKNDAYS + (noOfDays -2) * PRICE_OF_RWOOD_WEEKDAYS;
+	    	priceForLw = 2 * priceAtWeekend.get(0) + (noOfDays - 2) * hotelRateMap.get("Lakewood");
+	    	priceForBw = 2 * priceAtWeekend.get(1) + (noOfDays - 2) * hotelRateMap.get("Bridgewood");
+	    	priceforRw = 2 * priceAtWeekend.get(2) + (noOfDays - 2) * hotelRateMap.get("Ridgewood");
 	    }
 	    else if((date1.getDay() == 0 || date1.getDay() == 6) || (date2.getDay() == 0 || date2.getDay() == 6)) {
-	    	
-	    	priceForLw = 1 * PRICE_OF_LAKEWOOD_WEEKNDAYS + (noOfDays - 1) * PRICE_OF_LAKEWOOD_WEEKDAYS;
-	    	priceForBw = 1 * PRICE_OF_BWOOD_WEEKNDAYS + (noOfDays - 1) * PRICE_OF_BWOOD_WEEKDAYS;
-	    	priceforRw = 1 * PRICE_OF_RWOOD_WEEKNDAYS + (noOfDays - 1) * PRICE_OF_RWOOD_WEEKDAYS;
-	    	
+
+	    	priceForLw = 1 * priceAtWeekend.get(0) + (noOfDays - 1) * hotelRateMap.get("Lakewood");
+	    	priceForBw = 1 * priceAtWeekend.get(1) + (noOfDays - 1) * hotelRateMap.get("Bridgewood");
+	    	priceforRw = 1 * priceAtWeekend.get(2) + (noOfDays - 1) * hotelRateMap.get("Ridgewood");
 	    }
 	    else {
 	    	
-	    	priceForLw = (noOfDays) * PRICE_OF_LAKEWOOD_WEEKDAYS;
-	    	priceForBw = (noOfDays) * PRICE_OF_BWOOD_WEEKDAYS;
-	    	priceforRw = (noOfDays) * PRICE_OF_RWOOD_WEEKDAYS;
+
+	    	priceForLw = noOfDays  * hotelRateMap.get("Lakewood");
+	    	priceForBw = noOfDays * hotelRateMap.get("Bridgewood");
+	    	priceforRw = noOfDays  * hotelRateMap.get("Ridgewood");
 	    	
 	    }
 		
@@ -77,4 +94,6 @@ public class HotelReservationMain
 		
 		return hotel;
 	}
+	
+	
  }

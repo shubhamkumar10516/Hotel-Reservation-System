@@ -8,7 +8,9 @@ public class HotelReservationMain
 {
 
 	private Map<String, Double> hotelRateMap = new HashMap<>();
+	private Map<String, Double> hotelRateMapForRewardingCust = new HashMap<>();
 	private List<Double> priceAtWeekend = new ArrayList<>();
+	private List<Double> priceAtWeekendForRewardingCust = new ArrayList<>();
 	private List<Integer> rating = new ArrayList<>();
 	private List<String> hotelList = new ArrayList<>();
 	private double fare = 0.0;
@@ -128,6 +130,20 @@ public class HotelReservationMain
 		return priceforRw;
 	}
 	
+    public void priceForRewardingCust() {
+    	
+    	hotelRateMapForRewardingCust.put("Lakewood", 80.0);
+    	hotelRateMapForRewardingCust.put("Bridgewood", 110.0);
+    	hotelRateMapForRewardingCust.put("Ridgewood", 100.0);
+    	priceAtWeekendForRewardingCust.add(80.0);
+    	priceAtWeekendForRewardingCust.add(50.0);
+    	priceAtWeekendForRewardingCust.add(40.0);
+    }
+    
+    public void findChepestHotelForRewardingCust() {
+    	priceForRewardingCust();
+    }
+    
 	public String minCost(double a , double b, double c) {
 		String hotel = "Lakewood";
 		double minVal = a;

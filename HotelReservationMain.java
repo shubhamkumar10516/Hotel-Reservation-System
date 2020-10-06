@@ -10,7 +10,8 @@ public class HotelReservationMain
 	private Map<String, Double> hotelRateMap = new HashMap<>();
 	private List<Double> priceAtWeekend = new ArrayList<>();
 	private List<Integer> rating = new ArrayList<>();
-	
+	private List<String> hotelList = new ArrayList<>();
+	private double fare = 0.0;
 	public void addPriceAtWeekend() {
 		priceAtWeekend.add(90.0);
 		priceAtWeekend.add(50.0);
@@ -21,6 +22,9 @@ public class HotelReservationMain
 		rating.add(3);
 		rating.add(4);
 		rating.add(5);
+		hotelList.add("Lakewood");
+		hotelList.add("Bridgewood");
+		hotelList.add("Ridgewood");
 	}
 	
 	public void printWelcomeMessage() {
@@ -88,6 +92,42 @@ public class HotelReservationMain
 		return hotel;
 	}
 	
+	public String bestRatedHotel() {
+		addRating();
+		int l = rating.size();
+		String name = hotelList.get(l-1);
+		return name;
+	}
+	
+    public double bestRatedHotelPrice(String inDate, String outDate) throws ParseException {
+		
+    	addHotelNameAndRate( null,  0.0);
+		addPriceAtWeekend();
+		Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(inDate);
+		Date date2 = new SimpleDateFormat("dd-MMM-yyyy").parse(outDate);
+		
+		double priceforRw = 0.0;
+		long diff = date2.getTime() - date1.getTime();
+	    long noOfDays = diff/(24*60*60*1000) + 1;
+		
+	    if((date1.getDay() == 0 || date1.getDay() == 6) &&
+	    		(date2.getDay() == 0 || date2.getDay() == 6)&&
+	    		 (date2 != date1)) {
+	    	priceforRw = 2 * priceAtWeekend.get(2) + (noOfDays - 2) * hotelRateMap.get("Ridgewood");
+	    }
+	    else if((date1.getDay() == 0 || date1.getDay() == 6) || (date2.getDay() == 0 || date2.getDay() == 6)) {
+
+	    	priceforRw = 1 * priceAtWeekend.get(2) + (noOfDays - 1) * hotelRateMap.get("Ridgewood");
+	    }
+	    else {
+	    	
+	    	priceforRw = noOfDays  * hotelRateMap.get("Ridgewood");
+	    	
+	    }
+
+		return priceforRw;
+	}
+	
 	public String minCost(double a , double b, double c) {
 		String hotel = "Lakewood";
 		double minVal = a;
@@ -100,13 +140,14 @@ public class HotelReservationMain
 			minVal = c;
 			hotel = "Ridgewood";
 		}
-		
+		fare = minVal;
 		if(a == b) 
 			return "Bridgewood";
 		
 		
 		return hotel;
 	}
+	
 	
 	
  }

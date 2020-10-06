@@ -52,4 +52,16 @@ public class HotelReservationMainTest
         assertEquals(4,hotelResevation.findRating("11-sep-2020", "12-sep-2020"));
     }   
     
+    @Test
+    public void BestHotelRatingAndPriceTest7() throws ParseException
+    {
+        assertEquals("Ridgewood", hotelResevation.bestRatedHotel());
+        
+    }   
+    
+    @Test
+    public void BestHotelRatingAndPriceTest8() throws ParseException
+    {
+        assertTrue(370 == hotelResevation.bestRatedHotelPrice("11-sep-2020", "12-sep-2020"));
+    }
 }

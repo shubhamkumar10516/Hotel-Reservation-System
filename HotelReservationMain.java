@@ -140,8 +140,47 @@ public class HotelReservationMain
     	priceAtWeekendForRewardingCust.add(40.0);
     }
     
-    public void findChepestHotelForRewardingCust() {
+    public String findChepestHotelForRewardingCust(String inDate, String outDate) throws ParseException  {
     	priceForRewardingCust();
+    	Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(inDate);
+		Date date2 = new SimpleDateFormat("dd-MMM-yyyy").parse(outDate);
+		double price = 0.0;
+		double priceForLw = 0.0;
+		double priceForBw = 0.0;
+		double priceforRw = 0.0;
+		long diff = date2.getTime() - date1.getTime();
+	    long noOfDays = diff/(24*60*60*1000) + 1;
+		
+	    if((date1.getDay() == 0 || date1.getDay() == 6) &&
+	    		(date2.getDay() == 0 || date2.getDay() == 6)&&
+	    		 (date2 != date1)) {
+	    	priceForLw = 2 * priceAtWeekendForRewardingCust.get(0) + (noOfDays - 2) * hotelRateMapForRewardingCust.get("Lakewood");
+	    	priceForBw = 2 * priceAtWeekendForRewardingCust.get(1) + (noOfDays - 2) * hotelRateMapForRewardingCust.get("Bridgewood");
+	    	priceforRw = 2 * priceAtWeekendForRewardingCust.get(2) + (noOfDays - 2) * hotelRateMapForRewardingCust.get("Ridgewood");
+	    }
+	    else if((date1.getDay() == 0 || date1.getDay() == 6) || (date2.getDay() == 0 || date2.getDay() == 6)) {
+
+	    	priceForLw = 1 * priceAtWeekendForRewardingCust.get(0) + (noOfDays - 1) * hotelRateMapForRewardingCust.get("Lakewood");
+	    	priceForBw = 1 * priceAtWeekendForRewardingCust.get(1) + (noOfDays - 1) * hotelRateMapForRewardingCust.get("Bridgewood");
+	    	priceforRw = 1 * priceAtWeekendForRewardingCust.get(2) + (noOfDays - 1) * hotelRateMapForRewardingCust.get("Ridgewood");
+	    }
+	    else {
+	    	
+
+	    	priceForLw = noOfDays  * hotelRateMapForRewardingCust.get("Lakewood");
+	    	priceForBw = noOfDays * hotelRateMapForRewardingCust.get("Bridgewood");
+	    	priceforRw = noOfDays  * hotelRateMapForRewardingCust.get("Ridgewood");
+	    	
+	    }
+		
+	    String hotel = minCost(priceForLw, priceForBw, priceforRw);
+	    addRating();
+	    int i;
+	    for( i = 0 ; i < hotelList.size(); i++) {
+	         if(hotelList.get(i).equals(hotel)) break;
+	    }
+		return hotel + ", Rating: "+(i+3)+" and Total rates: $"+fare;
+
     }
     
 	public String minCost(double a , double b, double c) {
@@ -157,9 +196,10 @@ public class HotelReservationMain
 			hotel = "Ridgewood";
 		}
 		fare = minVal;
-		if(a == b) 
+		if(c == minVal) 
+			return "Ridgewood";
+		else if(b == minVal)
 			return "Bridgewood";
-		
 		
 		return hotel;
 	}

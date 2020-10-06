@@ -64,4 +64,11 @@ public class HotelReservationMainTest
     {
         assertTrue(370 == hotelResevation.bestRatedHotelPrice("11-sep-2020", "12-sep-2020"));
     }
+    
+    @Test
+    public void findCheapestHotelForRewardingCustTest9() throws ParseException
+    {
+    	String op = hotelResevation.findChepestHotelForRewardingCust("11-sep-2020", "12-sep-2020");
+        assertEquals("Ridgewood, Rating: 5 and Total rates: $140.0", op);
+    }
 }

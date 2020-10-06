@@ -10,8 +10,8 @@ public class HotelReservationMain
 	private Map<String, Double> hotelRateMap = new HashMap<>();
 	private double PRICE_OF_LAKEWOOD_WEEKDAYS = 110;
 	private double PRICE_OF_LAKEWOOD_WEEKNDAYS = 90;
-	private double PRICE_OF_BWOOD_WEEKDAYS = 160;
-	private double PRICE_OF_BWOOD_WEEKNDAYS = 60;
+	private double PRICE_OF_BWOOD_WEEKDAYS = 150;
+	private double PRICE_OF_BWOOD_WEEKNDAYS = 50;
 	private double PRICE_OF_RWOOD_WEEKDAYS = 220;
 	private double PRICE_OF_RWOOD_WEEKNDAYS = 150;
 	public void printWelcomeMessage() {
@@ -72,6 +72,9 @@ public class HotelReservationMain
 			minVal = c;
 			hotel = "Ridgewood";
 		}
+		
+		if(a == b) return "Lakewood, Bridgewood";
+		
 		return hotel;
 	}
  }

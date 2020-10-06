@@ -1,9 +1,19 @@
-package com.bridgeLabz.HotelReservation;
+package com.bridgeLabz.hotelResevationSystem;
 
-public class HotelReservationMain {
+import java.util.*;
 
-	public static void printWelcomeMessage() {
-		System.out.println("*******Welcome to Hotel Reservation System*******");
+public class HotelReservationMain 
+{
+
+	private Map<String, Double> hotelRateMap = new HashMap<>();
+	
+	public void printWelcomeMessage() {
+		System.out.println("***Welcome to Hotel Resevation System***");
 	}
 	
-}
+	public boolean addHotelNameAndRate(String hotelName, double hotelRates) {
+		if(hotelRateMap.put(hotelName, hotelRates) == null)
+			return true;
+		return false;
+	} 
+ }

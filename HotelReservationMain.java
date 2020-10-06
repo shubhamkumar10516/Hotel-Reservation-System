@@ -36,7 +36,18 @@ public class HotelReservationMain
 			return false;
 		return true;
 	} 
-	@SuppressWarnings("deprecation")
+	
+	public int findRating(String inDate, String outDate) throws ParseException {
+		String hotel = findCheapestHotel(inDate, outDate);
+		addRating();
+		if(hotel.equals("Lakewood"))
+			return rating.get(0);
+		else if(hotel.equals("Bridgewood"))
+			return rating.get(1);
+		return rating.get(2);
+		
+	}
+	
 	public String findCheapestHotel(String inDate, String outDate) throws ParseException {
 		
 		addHotelNameAndRate( null,  0.0);
@@ -73,7 +84,7 @@ public class HotelReservationMain
 	    }
 		
 	    String hotel = minCost(priceForLw, priceForBw, priceforRw);
-	    
+	       
 		return hotel;
 	}
 	
@@ -90,7 +101,9 @@ public class HotelReservationMain
 			hotel = "Ridgewood";
 		}
 		
-		if(a == b) return "Lakewood, Bridgewood";
+		if(a == b) 
+			return "Bridgewood";
+		
 		
 		return hotel;
 	}

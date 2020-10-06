@@ -43,6 +43,13 @@ public class HotelReservationMainTest
     @Test
     public void findCheapestHotelTest5() throws ParseException
     {
-        assertEquals("Lakewood, Bridgewood",hotelResevation.findCheapestHotel("11-sep-2020", "12-sep-2020"));
+        assertEquals("Bridgewood",hotelResevation.findCheapestHotel("11-sep-2020", "12-sep-2020"));
     }   
+    
+    @Test
+    public void findCheapestHotelRatingTest6() throws ParseException
+    {
+        assertEquals(4,hotelResevation.findRating("11-sep-2020", "12-sep-2020"));
+    }   
+    
 }

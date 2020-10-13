@@ -14,3 +14,13 @@ public class InvalidHotelAndDateType extends Exception {
 	}
 
 }
+/*private double calculatePriceForCustAtWn(long noOfDays, String hotelName) {
+		
+	 return (1 * priceAtWeekend.get(0)
+				+ (noOfDays - 1) * hotelRateMap.get(hotelName));
+	}
+
+	private double calculatePriceForCust(long noOfDays, String hotelName) {
+		return (2 * priceAtWeekend.get(0)
+				+ (noOfDays - 2) * hotelRateMap.get(hotelName));
+	}*/

@@ -99,4 +99,15 @@ public class HotelReservationMainTest {
 			assertEquals(Exception_Type.INVALID_DATE_FORMAT, e.type);
 		}
 	}
+
+	@Test
+	public void findCheapestBestRatedForGeneralCustHotelTest10() throws ParseException {
+		try {
+			assertEquals(4, hotelResevation.findRating("11sep2020", "12sep2020"));
+			assertEquals("Bridgewood", hotelResevation.findCheapestHotel("11sep2020", "12sep2020"));
+			assertTrue(200.0 == (hotelResevation.findCheapestBestRatedForRegularCust("11sep2020", "12sep2020")));
+		} catch (InvalidHotelAndDateType e) {
+			assertEquals(Exception_Type.INVALID_DATE_FORMAT, e.type);
+		}
+	}
 }

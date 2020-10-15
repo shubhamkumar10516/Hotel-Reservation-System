@@ -15,12 +15,21 @@ public class HotelReservationMainTest {
 	@Before
 	public void initialize() {
 		hotelResevation = new HotelReservationMain();
+		hotelResevation.addPriceAtWeekend(90);
+		hotelResevation.addPriceAtWeekend(50);
+		hotelResevation.addPriceAtWeekend(150);
+		hotelResevation.addRating(3, "Lakewood");
+		hotelResevation.addRating(4, "Bridgewood");
+		hotelResevation.addRating(5, "Ridgewood");
+		hotelResevation.priceForRewardingCust("Lakewood", 80, 80);
+		hotelResevation.priceForRewardingCust("Bridgewood", 110, 50);
+		hotelResevation.priceForRewardingCust("Ridgewood", 100, 40);
 	}
 
 	@Test
 	public void addHotelNameAndRateTest1() {
 		try {
-			assertTrue(hotelResevation.addHotelNameAndRate("Lakewood", 110));
+			assertFalse(hotelResevation.addHotelNameAndRate("Lakewood", 110));
 		} catch (InvalidHotelAndDateType e) {
 			assertEquals(Exception_Type.INVALID_HOTEL_NAME, e.type);
 		}
@@ -29,7 +38,7 @@ public class HotelReservationMainTest {
 	@Test
 	public void addHotelNameAndRateTest2() {
 		try {
-			assertTrue(hotelResevation.addHotelNameAndRate("Bridgewood", 160));
+			assertFalse(hotelResevation.addHotelNameAndRate("Bridgewood", 160));
 		} catch (InvalidHotelAndDateType e) {
 			assertEquals(Exception_Type.INVALID_HOTEL_NAME, e.type);
 		}
@@ -38,7 +47,7 @@ public class HotelReservationMainTest {
 	@Test
 	public void addHotelNameAndRateTest3() {
 		try {
-			assertTrue(hotelResevation.addHotelNameAndRate("Ridgewood", 220));
+			assertFalse(hotelResevation.addHotelNameAndRate("Ridgewood", 220));
 		} catch (InvalidHotelAndDateType e) {
 			assertEquals(Exception_Type.INVALID_HOTEL_NAME, e.type);
 		}
@@ -47,6 +56,9 @@ public class HotelReservationMainTest {
 	@Test
 	public void findCheapestHotelTest4() throws ParseException {
 		try {
+			hotelResevation.addHotelNameAndRate("Lakewood", 110);
+			hotelResevation.addHotelNameAndRate("Bridgewood", 160);
+			hotelResevation.addHotelNameAndRate("Ridgewood", 220);
 			assertEquals("Lakewood", hotelResevation.findCheapestHotel("10sep2020", "11sep2020"));
 		} catch (InvalidHotelAndDateType e) {
 			assertEquals(Exception_Type.INVALID_DATE_FORMAT, e.type);
@@ -91,6 +103,7 @@ public class HotelReservationMainTest {
 
 	@Test
 	public void findCheapestHotelForRewardingCustTest9() throws ParseException {
+
 		String op;
 		try {
 			op = hotelResevation.findChepestHotelForRewardingCust("11sep2020", "12sep2020");
